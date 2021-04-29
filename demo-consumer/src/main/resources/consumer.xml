@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	                       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+	                       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- TODO 如果服务提供者的bean报错说找不到，先去监控中心查看服务是否注册成功，如注册成功在开放平台上查看服务消费者是否有权限 -->
+
+    <!-- TODO name为开发平台 -> 服务提供者编码 -->
+    <dubbo:application name="33.2222"/>
+    <!-- TODO 配置中心的类型为dubbo，地址需要问学长 -->
+    <dubbo:registry id="my-registry" protocol="dubbo" address="134.108.3.249:8001"/>
+    <context:component-scan base-package="com.example.service"/>
+    <!-- TODO version一定要和服务中心的版本号对应 -->
+    <dubbo:reference id="sayHelloService"
+                     interface="com.example.service.SayHelloService"
+                     timeout="20000"
+                     retries="0"
+                     registry="my-registry"
+                     init="true"
+                     version="1.0">
+        <!-- TODO service为开发平台的服务编码 -->
+        <dubbo:method name="buildString" servicecode="BYuTestDubbo"/>
+    </dubbo:reference>
+
+</beans>

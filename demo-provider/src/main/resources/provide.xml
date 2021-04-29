@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:contest="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://dubbo.apache.org/schema/dubbo
+       http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--  TODO 如果配置成功，但监控平台显示没权限，需要看下服务提供者是否添加权限  -->
+    <!--  包扫描  -->
+    <contest:component-scan base-package="com.example.service"/>
+    <!-- TODO 服务提供者编码 开发平台 —> 自己服务的提供者编码-->
+    <dubbo:application name="33.2222"/>
+    <!-- TODO 注册中心，以dubbo形式，注册中心的端口和地址需要向学长要-->
+    <dubbo:registry protocol="dubbo" address="134.108.3.249:8001"/>
+    <!--  dubbo  -->
+    <dubbo:protocol name="dubbo" port="20880"/>
+    <!-- TODO 服务提供者 注意：version要和开发平台 —> 服务版本保持一致 -->
+    <dubbo:service interface="com.example.service.SayHelloService"
+                   protocol="dubbo"
+                   ref="sayHelloServiceImpl"
+                   version="1.0">
+        <!-- TODO name为方法名，servicecode为开发平台 —> 服务编码 -->
+        <dubbo:method name="buildString" servicecode="BYuTestDubbo"/>
+    </dubbo:service>
+
+</beans>
