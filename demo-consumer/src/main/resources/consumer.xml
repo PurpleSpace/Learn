@@ -22,7 +22,7 @@
                      registry="my-registry"
                      init="true"
                      version="1.0">
-        <!-- TODO service为开发平台的服务编码 -->
+        <!-- TODO service为开发平台的服务编码，servicecode为开发平台 —> 服务编码，(注意，servicecode与配置上必须一致) -->
         <dubbo:method name="buildString" servicecode="BYuTestDubbo"/>
     </dubbo:reference>
 
